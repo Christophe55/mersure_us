@@ -7,11 +7,10 @@ Auteur : Christophe MAGINOT """
 
 import RPi.GPIO as GPIO
 import time
+from parametre import *
 
 # paramétrage des ports GPIO
 GPIO.setmode(GPIO.BCM)
-TRIG = 20	# port sur lequel on envoi de signal
-ECHO = 16	# port sur lequel on écoute l'écho
 GPIO.setup(TRIG, GPIO.OUT)
 GPIO.setup(ECHO, GPIO.IN)
 

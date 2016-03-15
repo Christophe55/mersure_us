@@ -7,32 +7,33 @@ Auteur : Christophe MAGINOT """
 
 import RPi.GPIO as GPIO
 import time
-from datetime import date
 
 # paramétrage des ports GPIO
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(20, GPIO.OUT)
-GPIO.setup(16, GPIO.IN)
+TRIG = 20	# port sur lequel on envoi de signal
+ECHO = 16	# port sur lequel on écoute l'écho
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
 
 print("Mesure en cours...")
 
 # On contrôle que la broche Trig est à un potantiel bas et on lui laisse le temps de s'initialiser
 
-GPIO.output(20, False)
+GPIO.output(TRIG, False)
 print("Attente de l'initialisation du capteur")
 time.sleep(2)
 
 # déclecnhement de la mesure par envoi d'une impulsion de 10µs sur la broche TRIG
-GPIO.output(20, True)
+GPIO.output(TRIG, True)
 time.sleep(0.00001)
 GPIO.output(TRIG, False)
 
 # Horodatage du début du signal haut
-while GPIO.input(16) == 0:
+while GPIO.input(ECHO) == 0:
     pulse_start = time.time()
 
 # Horodatage de la fin du signal Haut
-while GPIO.input(16) == 1:
+while GPIO.input(ECHO) == 1:
     pulse_end = time.time()
     
 # Calculs
